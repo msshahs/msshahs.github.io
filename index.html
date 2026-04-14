@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meet Shah — AI Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #080c10;
+    --surface: #0d1117;
+    --surface2: #161b22;
+    --border: rgba(255,255,255,0.06);
+    --border2: rgba(255,255,255,0.12);
+    --text: #e6edf3;
+    --muted: #7d8590;
+    --accent: #58a6ff;
+    --accent2: #3fb950;
+    --accent3: #d2a8ff;
+    --amber: #e3b341;
+    --coral: #f78166;
+    --font-head: 'Syne', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* grid overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(88,166,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(88,166,255,0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 56px;
+    background: rgba(8,12,16,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--font-head);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* SECTIONS */
+  section { position: relative; z-index: 1; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 6rem 2rem 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .hero-inner { max-width: 720px; }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--accent2);
+    border: 1px solid rgba(63,185,80,0.25);
+    background: rgba(63,185,80,0.08);
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+    letter-spacing: 0.05em;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent2);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+  .hero h1 {
+    font-family: var(--font-head);
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 .line2 { color: var(--accent); }
+  .hero-desc {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+  }
+  .hero-desc strong { color: var(--text); font-weight: 500; }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #080c10;
+  }
+  .btn-primary:hover { background: #79c0ff; transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border2);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 3rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .stat-val {
+    font-family: var(--font-head);
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1;
+  }
+  .stat-val span { color: var(--accent); }
+  .stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  /* SECTION COMMON */
+  .section-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+  .section-num {
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+  .section-title {
+    font-family: var(--font-head);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent3));
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .project-card:hover { border-color: var(--border2); transform: translateY(-3px); }
+  .project-card:hover::before { opacity: 1; }
+  .project-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  .project-icon {
+    width: 40px; height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+  .project-links { display: flex; gap: 8px; }
+  .project-link {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 12px;
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+  .project-link:hover { color: var(--accent); border-color: var(--accent); }
+  .project-name {
+    font-family: var(--font-head);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .project-desc { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
+  .project-impact {
+    font-size: 12px;
+    color: var(--accent2);
+    background: rgba(63,185,80,0.08);
+    border: 1px solid rgba(63,185,80,0.2);
+    padding: 6px 12px;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+  }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-size: 11px;
+    color: var(--muted);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  /* EXPERIENCE */
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .exp-item:last-child { border-bottom: none; }
+  .exp-date { font-size: 12px; color: var(--muted); padding-top: 4px; }
+  .exp-role {
+    font-family: var(--font-head);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .exp-company { font-size: 13px; color: var(--accent); margin-bottom: 0.75rem; }
+  .exp-bullets { list-style: none; }
+  .exp-bullets li {
+    font-size: 13px;
+    color: var(--muted);
+    padding: 3px 0 3px 1rem;
+    position: relative;
+    line-height: 1.6;
+  }
+  .exp-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 11px;
+  }
+  .exp-bullets strong { color: var(--text); font-weight: 500; }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+  .skill-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+  }
+  .skill-group-title {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--accent3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .skill-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill-chip {
+    font-size: 12px;
+    color: var(--text);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+
+  /* CONTACT */
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .contact-text h2 {
+    font-family: var(--font-head);
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+  }
+  .contact-text p { font-size: 14px; color: var(--muted); line-height: 1.8; }
+  .contact-links { display: flex; flex-direction: column; gap: 12px; }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--text);
+    padding: 14px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 13px;
+    transition: all 0.2s;
+  }
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); transform: translateX(4px); }
+  .contact-link-icon { font-size: 16px; }
+  .contact-link-label { font-size: 11px; color: var(--muted); display: block; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--muted);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* CERT BADGE */
+  .cert-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--amber);
+    color: var(--amber);
+    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: 8px;
+    margin-top: 1rem;
+  }
+
+  /* ANIMATIONS */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s forwards;
+  }
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+  .delay-4 { animation-delay: 0.4s; }
+  .delay-5 { animation-delay: 0.5s; }
+
+  @media (max-width: 640px) {
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .contact-inner { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#"><span>//</span> meet shah</a>
+  <ul class="nav-links">
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#experience">experience</a></li>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag fade-in">available for full-time roles</div>
+    <h1 class="fade-in delay-1">
+      AI Systems<br>
+      <span class="line2">Engineer.</span>
+    </h1>
+    <p class="hero-desc fade-in delay-2">
+      I build <strong>production-grade agentic AI systems</strong> — RAG pipelines, multi-agent orchestration, and serverless cloud infrastructure. 3+ years shipping systems that serve real users at scale.
+    </p>
+    <div class="hero-cta fade-in delay-3">
+      <a href="https://github.com/msshahs" target="_blank" class="btn btn-primary">⬡ GitHub</a>
+      <a href="/cdn-cgi/l/email-protection#4b2638232a237a7f7f0b2a383e652e2f3e" class="btn btn-outline">↗ Get in Touch</a>
+      <a href="https://linkedin.com/in/mshah144" target="_blank" class="btn btn-outline">↗ LinkedIn</a>
+    </div>
+    <div class="hero-stats fade-in delay-4">
+      <div>
+        <div class="stat-val">150<span>K+</span></div>
+        <div class="stat-label">users served in production</div>
+      </div>
+      <div>
+        <div class="stat-val">3<span>+</span></div>
+        <div class="stat-label">years production experience</div>
+      </div>
+      <div>
+        <div class="stat-val">4.0</div>
+        <div class="stat-label">GPA at ASU (MS IT)</div>
+      </div>
+      <div>
+        <div class="stat-val">60<span>%</span></div>
+        <div class="stat-label">cost reduction, cloud rebuild</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section id="projects" style="background: var(--surface);">
+  <div class="section-wrap">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Featured Projects</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- RAG Chatbot -->
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-icon" style="background: rgba(88,166,255,0.1);">🧠</div>
+          <div class="project-links">
+            <a href="https://ask.asu.news/" target="_blank" class="project-link">Live Demo →</a>
+          </div>
+        </div>
+        <div class="project-name">News RAG Chatbot</div>
+        <div class="project-desc">Eliminated a 17-year knowledge gap for 200+ daily users by building a retrieval-augmented generation system over 1M+ news articles. Multi-LLM orchestration with sub-second answer retrieval.</div>
+        <div class="project-impact">→ 200+ daily users · 1M+ articles indexed · Answers in seconds</div>
+        <div class="tags">
+          <span class="tag">RAG</span>
+          <span class="tag">Pinecone</span>
+          <span class="tag">AWS Lambda</span>
+          <span class="tag">AWS Glue</span>
+          <span class="tag">Multi-LLM</span>
+          <span class="tag">Python</span>
+        </div>
+      </div>
+
+      <!-- Forge -->
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-icon" style="background: rgba(210,168,255,0.1);">⚡</div>
+          <div class="project-links">
+            <a href="https://github.com/msshahs/app-builder" target="_blank" class="project-link">GitHub →</a>
+          </div>
+        </div>
+        <div class="project-name">Forge — AI App Builder</div>
+        <div class="project-desc">Multi-agent LangGraph pipeline with GPT-4o that converts natural language prompts into fully deployed full-stack apps. Includes a self-healing Code Intelligence Agent that auto-fixes broken imports before build.</div>
+        <div class="project-impact">→ React + Express + MongoDB deployed in under 3 minutes</div>
+        <div class="tags">
+          <span class="tag">LangGraph</span>
+          <span class="tag">GPT-4o</span>
+          <span class="tag">AWS ECS</span>
+          <span class="tag">Docker</span>
+          <span class="tag">React.js</span>
+          <span class="tag">MongoDB</span>
+        </div>
+      </div>
+
+      <!-- NeuroMind -->
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-icon" style="background: rgba(63,185,80,0.1);">🎙️</div>
+          <div class="project-links">
+            <a href="https://twinmind-frontend.onrender.com/" target="_blank" class="project-link">Live Demo →</a>
+            <a href="https://github.com/msshahs/twinmind-frontend" target="_blank" class="project-link">GitHub →</a>
+          </div>
+        </div>
+        <div class="project-name">NeuroMind — Meeting AI</div>
+        <div class="project-desc">Real-time meeting transcription platform using Whisper + GPT-4, processing audio in 30-second chunks. Full second-brain system with LLM-powered chat over full transcript history and Google Calendar integration.</div>
+        <div class="project-impact">→ 80% reduction in post-meeting documentation time</div>
+        <div class="tags">
+          <span class="tag">Whisper</span>
+          <span class="tag">GPT-4</span>
+          <span class="tag">React.js</span>
+          <span class="tag">Firebase</span>
+          <span class="tag">Redis</span>
+          <span class="tag">Google Calendar</span>
+        </div>
+      </div>
+
+      <!-- Serverless File System -->
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-icon" style="background: rgba(227,179,65,0.1);">☁️</div>
+          </div>
+          <div class="project-links">
+            <a href="https://assets.asu.media/" target="_blank" class="project-link">Live Portal →</a>
+        </div>
+        <div class="project-name">Serverless Media Platform</div>
+        <div class="project-desc">Replaced a third-party media platform by engineering a serverless cloud file system from scratch — React.js frontend, AWS Lambda + S3 + DynamoDB backend, CloudFront-accelerated public portal with secure folder hierarchy.</div>
+        <div class="project-impact">→ 60% cost reduction · 3x faster asset retrieval</div>
+        <div class="tags">
+          <span class="tag">React.js</span>
+          <span class="tag">AWS Lambda</span>
+          <span class="tag">S3</span>
+          <span class="tag">DynamoDB</span>
+          <span class="tag">CloudFront</span>
+          <span class="tag">Terraform</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-wrap">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Experience</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="exp-list">
+      <div class="exp-item">
+        <div>
+          <div class="exp-date">Apr 2025 – Present</div>
+          <div class="cert-badge" style="font-size:11px; padding: 4px 10px; margin-top: 0.5rem;">🎓 ASU</div>
+        </div>
+        <div>
+          <div class="exp-role">AI Software Engineer (Management Intern)</div>
+          <div class="exp-company">Arizona State University — Tempe, AZ</div>
+          <ul class="exp-bullets">
+            <li>Built RAG chatbot over <strong>1M+ news articles</strong> using Pinecone, AWS Glue & Lambda — 200+ daily users, answers in seconds</li>
+            <li>Replaced third-party media platform with serverless AWS stack — <strong>60% cost reduction, 3x faster</strong> asset retrieval</li>
+            <li>Provisioned infrastructure via Terraform, automated CI/CD via GitHub Actions — <strong>80% reduction</strong> in release time</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div>
+          <div class="exp-date">Oct 2023 – Jul 2024</div>
+        </div>
+        <div>
+          <div class="exp-role">Software Development Engineer</div>
+          <div class="exp-company">Openxcell Pvt Ltd — Ahmedabad, India</div>
+          <ul class="exp-bullets">
+            <li>Re-architected USCIS government portal — <strong>65% faster</strong> federal form submissions, 40,000+ forms with zero data loss</li>
+            <li>Built Cardixa healthcare platform with LLM-powered disease probability prediction — <strong>30% increase</strong> in patient engagement</li>
+            <li>Architected microservices backend for sports platform on AWS with Docker — <strong>25% efficiency improvement</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div>
+          <div class="exp-date">Feb 2022 – Oct 2023</div>
+        </div>
+        <div>
+          <div class="exp-role">Software Engineer</div>
+          <div class="exp-company">Prepseed Pvt Ltd — Ahmedabad, India</div>
+          <ul class="exp-bullets">
+            <li>Owned architecture of education portal serving <strong>150K+ students</strong> — MongoDB/SQL schemas, Docker + Kubernetes on EC2</li>
+            <li>Built real-time chat system using Socket.io + Redis pub/sub — <strong>20% faster</strong> student-faculty response time</li>
+            <li>Built SQS-based user provisioning API across 60+ DB tables — <strong>70% reduction</strong> in onboarding time</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" style="background: var(--surface);">
+  <div class="section-wrap">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Skills & Stack</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-title">AI / ML</div>
+        <div class="skill-chips">
+          <span class="skill-chip">LLMs</span>
+          <span class="skill-chip">RAG</span>
+          <span class="skill-chip">LangGraph</span>
+          <span class="skill-chip">Vector Search</span>
+          <span class="skill-chip">Pinecone</span>
+          <span class="skill-chip">OpenAI API</span>
+          <span class="skill-chip">Prompt Engineering</span>
+          <span class="skill-chip">PyTorch</span>
+          <span class="skill-chip">Transformers</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Cloud & DevOps</div>
+        <div class="skill-chips">
+          <span class="skill-chip">AWS Lambda</span>
+          <span class="skill-chip">S3</span>
+          <span class="skill-chip">EC2</span>
+          <span class="skill-chip">DynamoDB</span>
+          <span class="skill-chip">SQS</span>
+          <span class="skill-chip">CloudFront</span>
+          <span class="skill-chip">Terraform</span>
+          <span class="skill-chip">Docker</span>
+          <span class="skill-chip">Kubernetes</span>
+          <span class="skill-chip">GitHub Actions</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Full Stack</div>
+        <div class="skill-chips">
+          <span class="skill-chip">React.js</span>
+          <span class="skill-chip">Next.js</span>
+          <span class="skill-chip">Node.js</span>
+          <span class="skill-chip">Express.js</span>
+          <span class="skill-chip">TypeScript</span>
+          <span class="skill-chip">WebSockets</span>
+          <span class="skill-chip">REST APIs</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Databases & Tools</div>
+        <div class="skill-chips">
+          <span class="skill-chip">MongoDB</span>
+          <span class="skill-chip">PostgreSQL</span>
+          <span class="skill-chip">Redis</span>
+          <span class="skill-chip">MySQL</span>
+          <span class="skill-chip">Grafana</span>
+          <span class="skill-chip">Jest</span>
+          <span class="skill-chip">Python</span>
+          <span class="skill-chip">Java</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 2rem; display: flex; gap: 12px; flex-wrap: wrap;">
+      <div class="cert-badge">☁️ AWS Certified Solutions Architect — Associate (SAA-C03)</div>
+      <div class="cert-badge" style="border-color: var(--accent3); color: var(--accent3);">🎓 ASU MS IT · GPA 4.0 · Expected May 2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-wrap">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Contact</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="contact-inner">
+      <div class="contact-text">
+        <h2>Let's build something.</h2>
+        <p>I'm actively looking for full-time AI / software engineering roles. Open to agentic AI, LLM systems, and cloud-native product work.</p>
+        <p style="margin-top: 1rem; font-size: 12px; color: var(--muted);">Based in Tempe, AZ · Remote-friendly · Available from May 2026</p>
+      </div>
+      <div class="contact-links">
+        <a href="/cdn-cgi/l/email-protection#acc1dfc4cdc49d9898eccddfd982c9c8d9" class="contact-link">
+          <span class="contact-link-icon">✉</span>
+          <div>
+            <span class="contact-link-label">email</span>
+            <span class="__cf_email__" data-cfemail="95f8e6fdf4fda4a1a1d5f4e6e0bbf0f1e0">[email&#160;protected]</span>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/mshah144" target="_blank" class="contact-link">
+          <span class="contact-link-icon">in</span>
+          <div>
+            <span class="contact-link-label">linkedin</span>
+            linkedin.com/in/mshah144
+          </div>
+        </a>
+        <a href="https://github.com/msshahs" target="_blank" class="contact-link">
+          <span class="contact-link-icon">⬡</span>
+          <div>
+            <span class="contact-link-label">github</span>
+            github.com/msshahs
+          </div>
+        </a>
+    
